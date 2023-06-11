@@ -1,23 +1,27 @@
 import React from 'react';
 import Header from '../header/header';
-import Footer from "../footer/footer";
+import Footer from '../footer/footer';
+import homeImage from '../../assets/home.jpg';
+import styles from '../styles/home.modules.css'
 
 function Home() {
     return (
-        <div className="App">
-            <Header/>
+        <div>
+            <Header />
             <div>
-                <h1>Welcome to our system</h1>
-                <p>Our system is designed to help you manage your tasks and projects in an efficient and organized
-                    manner. With our system, you can:</p>
-                <ul>
-                    <li>Create and manage tasks and projects</li>
-                    <li>Collaborate with your team members</li>
-                    <li>Track your progress and deadlines</li>
-                    <li>And much more!</li>
-                </ul>
+                <div>
+                    <div className={styles.homeImageContainer}>
+                        <img src={homeImage} alt="Home" className={styles.homeImage} />
+                    </div>
+                    <div className={styles.textOnImage}>
+                        <h1>Simplify your utilities with our system.</h1>
+                        <p>
+                            Our company specializes in providing a comprehensive software solution for automating and managing municipal services efficiently.
+                        </p>
+                    </div>
+                </div>
             </div>
-            <Footer/>
+            <Footer />
         </div>
     );
 }
