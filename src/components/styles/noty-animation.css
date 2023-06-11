@@ -1,0 +1,29 @@
+.noty-animation-bounce {
+    animation-duration: 0.5s; /* Тривалість анімації */
+}
+
+@keyframes bounceInRight {
+    0% {
+        opacity: 0;
+        transform: translateX(200px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes bounceOutRight {
+    0% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    100% {
+        opacity: 0;
+        transform: translateX(200px);
+    }
+}
+
+.animated {
+    animation-fill-mode: both;
+}
