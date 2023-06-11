@@ -1,23 +1,57 @@
-import React from 'react';
-import '../styles/header.css'; // Імпортуйте глобальні стилі
-import { Link } from 'react-router-dom'; // Імпортуйте компонент Link
+import React, {useState} from 'react';
+import {
+    MDBNavbar,
+    MDBNavbarNav,
+    MDBNavbarItem,
+    MDBNavbarLink,
+    MDBNavbarToggler,
+    MDBContainer,
+    MDBIcon,
+    MDBCollapse
+} from 'mdb-react-ui-kit';
+import 'mdb-react-ui-kit/dist/css/mdb.min.css';
 
-function Header() {
+
+export default function App() {
+    const [showBasic, setShowBasic] = useState(true);
+
     return (
-        <header className="header"> {/* Додайте клас стилю */}
-            <nav>
-                <ul>
-                    <li><Link to="/">Home</Link></li> {/* Замініть посилання на компонент Link */}
-                    <li><Link to="/buy-sensors">Buy Sensors</Link></li> {/* Замініть посилання на компонент Link */}
-                    <li><Link to="/about-us">About Us</Link></li> {/* Замініть посилання на компонент Link */}
-                </ul>
-                <ul className="right">
-                    <li><Link to="/login">Login</Link></li> {/* Замініть посилання на компонент Link */}
-                    <li><Link to="/register">Register</Link></li> {/* Замініть посилання на компонент Link */}
-                </ul>
-            </nav>
+        <header>
+            <MDBNavbar expand='lg' light bgColor='white' fixed='top'>
+                <MDBContainer fluid>
+                    <MDBNavbarToggler
+                        aria-controls='navbarExample01'
+                        aria-expanded='false'
+                        aria-label='Toggle navigation'
+                    >
+                        <MDBIcon fas icon='bars'/>
+                    </MDBNavbarToggler>
+                    <MDBCollapse show={showBasic}>
+                        <MDBNavbarNav right className='mb-2 mb-lg-0'>
+                            <MDBNavbarItem active>
+                                <MDBNavbarLink aria-current='page' href='/'>
+                                    Home
+                                </MDBNavbarLink>
+                            </MDBNavbarItem>
+                            <MDBNavbarItem>
+                                <MDBNavbarLink href='#'>Features</MDBNavbarLink>
+                            </MDBNavbarItem>
+                            <MDBNavbarItem>
+                                <MDBNavbarLink href='#'>Pricing</MDBNavbarLink>
+                            </MDBNavbarItem>
+                            <MDBNavbarItem>
+                                <MDBNavbarLink href='#'>About</MDBNavbarLink>
+                            </MDBNavbarItem>
+                            <MDBNavbarItem>
+                                <MDBNavbarLink href='/login'>Log-In</MDBNavbarLink>
+                            </MDBNavbarItem>
+                            <MDBNavbarItem>
+                                <MDBNavbarLink href='/register'>Sign-In</MDBNavbarLink>
+                            </MDBNavbarItem>
+                        </MDBNavbarNav>
+                    </MDBCollapse>
+                </MDBContainer>
+            </MDBNavbar>
         </header>
     );
 }
-
-export default Header;

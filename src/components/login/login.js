@@ -3,7 +3,6 @@ import axios from 'axios';
 import Header from '../header/header';
 import styles from '../styles/login.module.css';
 import Footer from "../footer/footer";
-import '../styles/app.css';
 import Noty from 'noty';
 import 'noty/lib/noty.css';
 import 'noty/lib/themes/sunset.css';
@@ -56,7 +55,7 @@ function Login() {
 
 
     return (
-        <div className="App">
+        <div>
             <Header/>
             <div className={`${styles.container} container`}>
                 <h2>Sign in to your account</h2>

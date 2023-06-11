@@ -1,0 +1,39 @@
+.home-image {
+    width: 100%;
+    height: auto;
+    filter: contrast(1.35) brightness(0.65);
+}
+
+.text-on-image {
+    position: absolute;
+    top: 45%;
+    left: 40%;
+    transform: translate(-50%, -50%);
+    color: white;
+    text-shadow: 0 0 25px black;
+}
+
+h1 {
+    font-size: 2.5em;
+}
+
+p {
+    font-size: 1.2em;
+}
+
+ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+li {
+    font-size: 1.2em;
+    margin-bottom: 20px;
+}
+
+.home-image-container {
+    overflow: hidden;
+    height: 500px;
+    flex-grow: 1;
+}
