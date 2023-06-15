@@ -31,16 +31,36 @@ input[type="password"] {
     border: 1px solid #ccc;
 }
 
-button[type="submit"] {
-    margin-left: 10px;
-    padding: 10px 20px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 3px;
-    cursor: pointer;
-}
-
 body, label, input {
     font-family: Arial, sans-serif;
+}
+
+.header-animation {
+    animation: slide-out-top 1s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
+}
+
+@keyframes slide-out-top {
+    0% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-60px);
+        opacity: 0;
+    }
+}
+
+.footer-animation {
+    animation: slide-out-bottom 1s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
+}
+
+@keyframes slide-out-bottom {
+    0% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(60px);
+        opacity: 0;
+    }
 }

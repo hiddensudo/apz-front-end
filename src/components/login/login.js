@@ -1,20 +1,32 @@
-import React, {useState} from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useTranslation } from 'react-i18next';
 import Header from '../header/header';
 import styles from '../styles/login.module.css';
-import Footer from "../footer/footer";
+import Footer from '../footer/footer';
 import Noty from 'noty';
 import 'noty/lib/noty.css';
 import 'noty/lib/themes/sunset.css';
 import Animation from '../Animation/Animation';
 
-
-// Додайте стилі для анімації прямо в ваш файл CSS
 import '../styles/noty-animation.css';
+import Button from "@mui/material/Button";
 
 function Login() {
+    const { t } = useTranslation();
     const [email, setEmail] = useState('danylo@gmail.com');
-    const [password, setPassword] = useState('newpassword123');
+    const [password, setPassword] = useState('klik1234');
+    const [isLoggedOut, setIsLoggedOut] = useState(false);
+    const [headerVisible, setHeaderVisible] = useState(true);
+    const [footerVisible, setFooterVisible] = useState(true);
+
+    useEffect(() => {
+        if (isLoggedOut) {
+            setTimeout(() => {
+                window.location.href = '/';
+            }, 1000);
+        }
+    }, [isLoggedOut]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -25,43 +37,80 @@ function Login() {
                 password,
             });
 
-            console.log(response.data);
+            localStorage.setItem('access_token', response.data.access_token);
+            console.log(response.data.access_token);
+
             const notification = new Noty({
                 theme: 'sunset',
-                text: 'Authorization successful!',
+                text: t('loginSuccess'),
                 type: 'success',
-                timeout: 3000,
+                timeout: 1000,
                 animation: {
                     open: Animation.open,
                     close: Animation.close,
                 },
             });
             notification.show();
+
+            setHeaderVisible(false);
+            setFooterVisible(false);
+
+            setIsLoggedOut(true);
         } catch (error) {
             console.error(error);
-            new Noty({
-                theme: 'sunset',
-                text: 'Authorization failed!',
-                type: 'error',
-                timeout: 3000,
-                animation: {
-                    open: Animation.open,
-                    close: Animation.close,
-                },
-            }).show();
+
+            try {
+                const adminResponse = await axios.post('http://127.0.0.1:5000/api/admin/login', {
+                    email,
+                    password,
+                });
+
+                localStorage.setItem('admin_access', adminResponse.data.access_token);
+                console.log(adminResponse.data.access_token);
+
+                const notification = new Noty({
+                    theme: 'sunset',
+                    text: t('loginSuccess'),
+                    type: 'success',
+                    timeout: 1000,
+                    animation: {
+                        open: Animation.open,
+                        close: Animation.close,
+                    },
+                });
+                notification.show();
+
+                setHeaderVisible(false);
+                setFooterVisible(false);
+
+                setIsLoggedOut(true);
+
+                window.location.href = '/admin';
+            } catch (adminError) {
+                console.error(adminError);
+                new Noty({
+                    theme: 'sunset',
+                    text: t('loginFailed'),
+                    type: 'error',
+                    timeout: 3000,
+                    animation: {
+                        open: Animation.open,
+                        close: Animation.close,
+                    },
+                }).show();
+            }
         }
     };
 
 
-
     return (
         <div>
-            <Header/>
+            {headerVisible && <Header />}
             <div className={`${styles.container} container`}>
-                <h2>Sign in to your account</h2>
+                <h2>{t('loginTitle')}</h2>
                 <form id="login-form" onSubmit={handleSubmit}>
                     <div className="form-group">
-                        <label htmlFor="email">Email:</label>
+                        <label htmlFor="email">{t('emailLabel')}:</label>
                         <input
                             type="email"
                             id="email"
@@ -72,7 +121,7 @@ function Login() {
                         />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="password">Password:</label>
+                        <label htmlFor="password">{t('passwordLabel')}:</label>
                         <input
                             type="password"
                             id="password"
@@ -82,10 +131,21 @@ function Login() {
                             onChange={(e) => setPassword(e.target.value)}
                         />
                     </div>
-                    <button type="submit">Sign In</button>
+                    <Button
+                        type="submit"
+                        style={{
+                            backgroundColor: '#dbe0f4',
+                            fontSize: '15px',
+                            borderRadius: '30px',
+                            width: '60%',
+                            left: '20%',
+                        }}
+                    >
+                        {t('loginButton')}
+                    </Button>
                 </form>
             </div>
-            <Footer/>
+            {footerVisible && <Footer />}
         </div>
     );
 }

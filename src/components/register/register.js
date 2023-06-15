@@ -1,4 +1,5 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import Header from '../header/header';
 import Footer from '../footer/footer';
 import styles from '../styles/register.module.css';
@@ -7,8 +8,11 @@ import Noty from 'noty';
 import 'noty/lib/noty.css';
 import 'noty/lib/themes/sunset.css';
 import Animation from '../Animation/Animation';
+import Button from "@mui/material/Button";
 
 function Register() {
+    const { t } = useTranslation();
+
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
@@ -18,10 +22,9 @@ function Register() {
         e.preventDefault();
 
         if (password.length < 8) {
-            // Пароль менше 8 символів
             new Noty({
                 theme: 'sunset',
-                text: 'Password less than 8 characters!',
+                text: t('passwordLengthError'),
                 type: 'error',
                 timeout: 1000,
                 animation: {
@@ -33,10 +36,9 @@ function Register() {
         }
 
         if (password !== confirmPassword) {
-            // Паролі не співпадають
             new Noty({
                 theme: 'sunset',
-                text: 'Passwords do not match!',
+                text: t('passwordsNotMatchError'),
                 type: 'error',
                 timeout: 1000,
                 animation: {
@@ -55,11 +57,10 @@ function Register() {
                 password,
             });
 
-            // Обробка відповіді після успішного запиту на реєстрацію
             console.log(response.data);
             const notification = new Noty({
                 theme: 'sunset',
-                text: 'Registration successful!',
+                text: t('registrationSuccessful'),
                 type: 'success',
                 timeout: 1000,
                 animation: {
@@ -69,7 +70,6 @@ function Register() {
             });
             notification.show();
         } catch (error) {
-            // Обробка помилки під час запиту на реєстрацію
             console.error(error);
             if (
                 error.response &&
@@ -78,7 +78,7 @@ function Register() {
             ) {
                 new Noty({
                     theme: 'sunset',
-                    text: 'User already exists!',
+                    text: t('userExistsError'),
                     type: 'error',
                     timeout: 1000,
                     animation: {
@@ -89,7 +89,7 @@ function Register() {
             } else {
                 new Noty({
                     theme: 'sunset',
-                    text: 'Registration failed!',
+                    text: t('registrationFailed'),
                     type: 'error',
                     timeout: 1000,
                     animation: {
@@ -101,16 +101,14 @@ function Register() {
         }
     };
 
-
-
     return (
         <div className="App">
-            <Header/>
+            <Header />
             <div className={`${styles.container} container`}>
-                <h2>Create an account</h2>
+                <h2>{t('createAccountTitle')}</h2>
                 <form id="register-form" onSubmit={handleSubmit}>
                     <div className="form-group">
-                        <label htmlFor="name">Name:</label>
+                        <label htmlFor="name">{t('nameLabel')}</label>
                         <input
                             type="text"
                             id="name"
@@ -121,7 +119,7 @@ function Register() {
                         />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="email">Email:</label>
+                        <label htmlFor="email">{t('emailLabel')}</label>
                         <input
                             type="email"
                             id="email"
@@ -132,7 +130,7 @@ function Register() {
                         />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="password">Password:</label>
+                        <label htmlFor="password">{t('passwordLabel')}</label>
                         <input
                             type="password"
                             id="password"
@@ -143,7 +141,7 @@ function Register() {
                         />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="confirm-password">Confirm Password:</label>
+                        <label htmlFor="confirm-password">{t('confirmPasswordLabel')}</label>
                         <input
                             type="password"
                             id="confirm-password"
@@ -153,10 +151,21 @@ function Register() {
                             onChange={(e) => setConfirmPassword(e.target.value)}
                         />
                     </div>
-                    <button type="submit">Sign Up</button>
+                    <Button
+                        type="submit"
+                        style={{
+                            backgroundColor: '#dbe0f4',
+                            fontSize: '15px',
+                            borderRadius: '30px',
+                            width: '60%',
+                            left: '20%',
+                        }}
+                    >
+                        {t('signUpButton')}
+                    </Button>
                 </form>
             </div>
-            <Footer/>
+            <Footer />
         </div>
     );
 }

@@ -1,0 +1,62 @@
+.productsList {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.goodsBlock {
+    position: relative;
+    background-color: white;
+    min-width: 350px;
+    max-width: 100%;
+    padding: 40px;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 10px;
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+}
+
+.enterAnimation {
+    animation: enterAnimation 0.5s ease-in-out forwards;
+}
+
+@keyframes enterAnimation {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.productImage {
+    max-height: 210px;
+    width: auto;
+}
+
+.goodsBlock h2 {
+    font-size: 2.5em;
+}
+
+.goodsBlock p {
+    font-size: 1.2em;
+}
+
+/* Додайте ці стилі до потрібних класів для хедера і футера */
+.enterAnimation {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+.enterAnimation.entered {
+    opacity: 1;
+    transform: translateY(0);
+}

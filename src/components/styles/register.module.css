@@ -31,16 +31,6 @@ input[type="password"] {
     border: 1px solid #ccc;
 }
 
-button[type="submit"] {
-    margin-left: 10px;
-    padding: 10px 20px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 3px;
-    cursor: pointer;
-}
-
 body, label, input {
     font-family: Arial, sans-serif;
 }
